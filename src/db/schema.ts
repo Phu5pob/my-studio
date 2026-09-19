@@ -14,7 +14,7 @@ export const branches = pgTable("branches", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-// ---------- Users (admin | teacher | student) ----------
+// ---------- Users ----------
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
@@ -43,11 +43,11 @@ export const courses = pgTable("courses", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-// ---------- Rooms (ห้องเรียน) ----------
+// ---------- Rooms ----------
 export const rooms = pgTable("rooms", {
   id: serial("id").primaryKey(),
   branchId: integer("branch_id").notNull().references(() => branches.id, { onDelete: "cascade" }),
-  name: text("name").notNull(),       // เช่น "ห้อง A1"
+  name: text("name").notNull(),
   capacity: integer("capacity").notNull().default(1),
   description: text("description").default(""),
 });
