@@ -8,7 +8,9 @@ import { logoutAction } from "@/lib/actions/auth";
 
 const NAV_LINKS = [
   { href: "/courses", label: "คอร์สเรียน" },
+  { href: "/teachers", label: "ครูผู้สอน" },
   { href: "/branches", label: "สาขา" },
+  { href: "/about", label: "เกี่ยวกับเรา" },
   { href: "/news", label: "ข่าวสาร" },
 ];
 
@@ -33,7 +35,7 @@ export function SiteHeader({ session }: { session: SessionPayload | null }) {
             <span className="hidden sm:inline text-[11px] tracking-wide text-ink-soft">โรงเรียนสอนดนตรี</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {NAV_LINKS.map((link) => (
               <Link key={link.href} href={link.href}
                 className={`text-sm transition-colors hover:text-burgundy ${pathname.startsWith(link.href) ? "text-burgundy font-medium" : "text-ink-soft"}`}>
@@ -42,7 +44,7 @@ export function SiteHeader({ session }: { session: SessionPayload | null }) {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             {session ? (
               <>
                 {portal && (
@@ -66,7 +68,7 @@ export function SiteHeader({ session }: { session: SessionPayload | null }) {
             )}
           </div>
 
-          <button className="md:hidden p-2 -mr-2 text-ink" onClick={() => setOpen((v) => !v)} aria-label="เปิดเมนู">
+          <button className="lg:hidden p-2 -mr-2 text-ink" onClick={() => setOpen((v) => !v)} aria-label="เปิดเมนู">
             <span className="block w-6 h-px bg-ink mb-1.5" />
             <span className="block w-6 h-px bg-ink mb-1.5" />
             <span className="block w-4 h-px bg-ink" />
@@ -75,7 +77,7 @@ export function SiteHeader({ session }: { session: SessionPayload | null }) {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-line px-5 py-4 flex flex-col gap-4 bg-white">
+        <div className="lg:hidden border-t border-line px-5 py-4 flex flex-col gap-4 bg-white">
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="text-sm text-ink-soft">{link.label}</Link>
           ))}

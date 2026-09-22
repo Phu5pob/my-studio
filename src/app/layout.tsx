@@ -6,7 +6,7 @@ import { getSession } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "My Studio | โรงเรียนสอนดนตรี",
-  description: "My Studio เรียนดนตรีทุกเครื่องมือ ทุกวัย หลายสาขาในภาคใต้",
+  description: "My Studio เรียนดนตรีทุกเครื่องมือ ทุกวัย หลายสาขาทั่วกรุงเทพฯ",
 };
 
 export default async function RootLayout({ children }: LayoutProps) {

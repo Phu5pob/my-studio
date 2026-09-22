@@ -30,12 +30,30 @@ export function TeacherForm({ branches }: { branches: Branch[] }) {
           <input name="phone" className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy/30" />
         </div>
       </div>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm text-ink-soft mb-1.5">สาขาประจำ</label>
+          <select name="branchId" className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy/30">
+            <option value="">ไม่ระบุ</option>
+            {branches.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm text-ink-soft mb-1.5">เครื่องดนตรีที่สอน</label>
+          <input name="instruments" placeholder="เช่น เปียโน, กีตาร์" className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy/30" />
+        </div>
+      </div>
       <div>
-        <label className="block text-sm text-ink-soft mb-1.5">สาขาประจำ</label>
-        <select name="branchId" className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy/30">
-          <option value="">ไม่ระบุ</option>
-          {branches.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
-        </select>
+        <label className="block text-sm text-ink-soft mb-1.5">การศึกษา / จบจากที่ไหน</label>
+        <input name="education" placeholder="เช่น ปริญญาตรี ดุริยางคศาสตร์ มหาวิทยาลัยมหิดล" className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy/30" />
+      </div>
+      <div>
+        <label className="block text-sm text-ink-soft mb-1.5">ประสบการณ์</label>
+        <input name="experience" placeholder="เช่น สอนดนตรีมากกว่า 10 ปี" className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy/30" />
+      </div>
+      <div>
+        <label className="block text-sm text-ink-soft mb-1.5">รูปภาพ (URL)</label>
+        <input name="avatarUrl" placeholder="https://..." className="w-full rounded-md border border-line bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-burgundy/30" />
       </div>
       <SubmitButton pendingText="กำลังเพิ่ม…">เพิ่มครู</SubmitButton>
     </form>

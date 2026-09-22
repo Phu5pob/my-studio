@@ -18,8 +18,32 @@ export async function createTeacherAction(_prevState: ActionState, formData: For
     role: "teacher",
     phone: (formData.get("phone") as string) || "",
     branchId: formData.get("branchId") ? Number(formData.get("branchId")) : null,
+    avatarUrl: (formData.get("avatarUrl") as string) || "",
+    education: (formData.get("education") as string) || "",
+    experience: (formData.get("experience") as string) || "",
+    instruments: (formData.get("instruments") as string) || "",
   });
   revalidatePath("/admin/teachers");
+  revalidatePath("/teachers");
+  return null;
+}
+
+export async function updateTeacherAction(_prevState: ActionState, formData: FormData): Promise<ActionState> {
+  await requireAdmin();
+  const id = Number(formData.get("id"));
+  await db.update(schema.users).set({
+    name: formData.get("name") as string,
+    phone: (formData.get("phone") as string) || "",
+    branchId: formData.get("branchId") ? Number(formData.get("branchId")) : null,
+    avatarUrl: (formData.get("avatarUrl") as string) || "",
+    education: (formData.get("education") as string) || "",
+    experience: (formData.get("experience") as string) || "",
+    instruments: (formData.get("instruments") as string) || "",
+    position: (formData.get("position") as string) || "",
+  }).where(eq(schema.users.id, id));
+  revalidatePath("/admin/teachers");
+  revalidatePath("/teachers");
+  revalidatePath("/about");
   return null;
 }
 
@@ -27,4 +51,5 @@ export async function deleteTeacherAction(formData: FormData) {
   await requireAdmin();
   await db.delete(schema.users).where(eq(schema.users.id, Number(formData.get("id"))));
   revalidatePath("/admin/teachers");
+  revalidatePath("/teachers");
 }

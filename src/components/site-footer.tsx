@@ -24,10 +24,8 @@ export function SiteFooter() {
             <p className="text-xs tracking-wide text-ink-soft mb-3">ติดต่อเรา</p>
             <ul className="space-y-2 text-sm text-ink-soft">
               <li>โทร 080-235-4146</li>
-              <li>khanida2005@gmail.com</li>
-              <li>เปิดทุกวัน 9:00–19:00 น.</li>
-              <li>FB:Mystudio Musicschool and Instruments
-</li>
+              <li>info@mystudio.example</li>
+              <li>เปิดทุกวัน 9:00–20:00 น.</li>
             </ul>
           </div>
         </div>

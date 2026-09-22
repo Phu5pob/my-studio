@@ -30,7 +30,7 @@ export default async function HomePage() {
           <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.15] text-ink max-w-xl">
             พื้นที่ฝึกฝนดนตรี
             <br />
-            ของคนทุกวัยในภาคใต้
+            ของคนทุกวัยในกรุงเทพฯ
           </h1>
           <p className="mt-6 text-ink-soft leading-relaxed max-w-md">
             เรียนตัวต่อตัวกับครูมืออาชีพ ในห้องซ้อมกันเสียงคุณภาพ
@@ -40,7 +40,7 @@ export default async function HomePage() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/courses"
-              className="rounded-full bg-burgundy text-white px-6 py-3 text-sm font-medium hover:bg-burgundy-deep transition-colors"
+              className="rounded-full bg-burgundy text-ivory px-6 py-3 text-sm font-medium hover:bg-burgundy-deep transition-colors"
             >
               ดูคอร์สเรียนทั้งหมด
             </Link>
@@ -54,7 +54,7 @@ export default async function HomePage() {
         </div>
 
         <div className="relative">
-          <div className="rounded-lg border border-line bg-white p-6 shadow-sm">
+          <div className="staff-lines rounded-lg border border-line bg-white p-6 shadow-[0_1px_0_rgba(0,0,0,0.03)]">
             {/* โลโก้ My Studio */}
             <div className="flex justify-center mb-5">
               <Image
@@ -82,6 +82,7 @@ export default async function HomePage() {
               ))}
             </ul>
           </div>
+          <div className="absolute -bottom-5 -left-5 w-24 h-24 rounded-full bg-brass-soft/60 -z-10" />
         </div>
       </section>
 
@@ -133,7 +134,7 @@ export default async function HomePage() {
           <h2 className="font-display text-2xl sm:text-3xl mb-8">สาขาของเรา</h2>
           <div className="grid sm:grid-cols-3 gap-6">
             {branches.map((branch) => (
-              <div key={branch.id} className="bg-white rounded-md border border-line p-6">
+              <div key={branch.id} className="bg-ivory rounded-md border border-line p-6">
                 <p className="font-display text-xl">{branch.name}</p>
                 <p className="text-sm text-ink-soft mt-2 leading-relaxed">
                   {branch.address}

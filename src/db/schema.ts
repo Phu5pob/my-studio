@@ -24,6 +24,10 @@ export const users = pgTable("users", {
   phone: text("phone").default(""),
   branchId: integer("branch_id").references(() => branches.id, { onDelete: "set null" }),
   avatarUrl: text("avatar_url").default(""),
+  education: text("education").default(""),
+  experience: text("experience").default(""),
+  instruments: text("instruments").default(""),
+  position: text("position").default(""),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
