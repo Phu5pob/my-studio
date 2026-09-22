@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --ivory: #f0f7ff;
+  --ivory-deep: #daeeff;
+  --ink: #0a1628;
+  --ink-soft: #2d4a7a;
+  --primary: #1a56db;
+  --primary-deep: #1240a8;
+  --accent: #0ea5e9;
+  --accent-soft: #bae6fd;
+  --white: #ffffff;
+  --sage: #0891b2;
+  --line: #bfdbfe;
+  --danger: #dc2626;
+}
+
+@theme inline {
+  --color-ivory: var(--ivory);
+  --color-ivory-deep: var(--ivory-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-burgundy: var(--primary);
+  --color-burgundy-deep: var(--primary-deep);
+  --color-brass: var(--accent);
+  --color-brass-soft: var(--accent-soft);
+  --color-sage: var(--sage);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: "Sarabun", "Noto Sans Thai", "Tahoma", system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: "Sarabun", "Noto Serif Thai", "Georgia", serif;
+  font-weight: 700;
+}
+
+::selection { background: var(--accent-soft); color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
