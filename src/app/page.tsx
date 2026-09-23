@@ -30,7 +30,7 @@ export default async function HomePage() {
           <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.15] text-ink max-w-xl">
             พื้นที่ฝึกฝนดนตรี
             <br />
-            ของคนทุกวัยในภาคใต้
+            ของคนทุกวัยในกรุงเทพฯ
           </h1>
           <p className="mt-6 text-ink-soft leading-relaxed max-w-md">
             เรียนตัวต่อตัวกับครูมืออาชีพ ในห้องซ้อมกันเสียงคุณภาพ

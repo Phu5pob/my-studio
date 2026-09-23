@@ -2,6 +2,7 @@ import Link from "next/link";
 
 const LINKS = [
   { href: "/admin", label: "ภาพรวม" },
+  { href: "/admin/management", label: "ผู้บริหาร" },
   { href: "/admin/branches", label: "สาขา" },
   { href: "/admin/rooms", label: "ห้องเรียน" },
   { href: "/admin/teachers", label: "ครูผู้สอน" },
@@ -21,7 +22,11 @@ export default function AdminLayout({ children }: LayoutProps) {
       <div className="grid lg:grid-cols-[200px_1fr] gap-10">
         <nav className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible border-b lg:border-b-0 lg:border-r border-line pb-3 lg:pb-0 lg:pr-6">
           {LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm text-ink-soft hover:text-burgundy whitespace-nowrap px-1 py-1.5">
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm text-ink-soft hover:text-burgundy whitespace-nowrap px-1 py-1.5"
+            >
               {link.label}
             </Link>
           ))}
