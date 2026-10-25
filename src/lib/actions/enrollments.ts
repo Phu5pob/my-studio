@@ -1,7 +1,8 @@
+
 "use server";
 
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { eq, and, inArray } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db, schema } from "@/db";
@@ -11,10 +12,10 @@ import type { ActionState } from "./auth";
 function generateInvoiceNo() {
   const now = new Date();
   const rand = Math.floor(1000 + Math.random() * 9000);
-  return `INV-${now.getFullYear() + 543}${String(now.getMonth() + 1).padStart(
-    2,
-    "0"
-  )}-${rand}`;
+
+  return `INV-${now.getFullYear() + 543}${String(
+    now.getMonth() + 1
+  ).padStart(2, "0")}-${rand}`;
 }
 
 const bookSchema = z.object({
@@ -34,15 +35,40 @@ export async function createEnrollmentAction(
     scheduleId: formData.get("scheduleId") || undefined,
     note: formData.get("note") || "",
   });
+
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message };
   }
 
+  // ตรวจสอบว่าคอร์สมีอยู่จริง
   const course = await db.query.courses.findFirst({
     where: eq(schema.courses.id, parsed.data.courseId),
   });
-  if (!course) return { error: "ไม่พบคอร์สที่เลือก" };
 
+  if (!course) {
+    return { error: "ไม่พบคอร์สที่เลือก" };
+  }
+
+  // ตรวจสอบการลงทะเบียนซ้ำ
+  const existingEnrollment =
+    await db.query.enrollments.findFirst({
+      where: and(
+        eq(schema.enrollments.userId, session.userId),
+        eq(schema.enrollments.courseId, parsed.data.courseId),
+        inArray(schema.enrollments.status, [
+          "pending",
+          "confirmed",
+        ])
+      ),
+    });
+
+  if (existingEnrollment) {
+    return {
+      error: "คุณได้ลงทะเบียนคอร์สนี้ไปแล้ว ไม่สามารถลงทะเบียนซ้ำได้",
+    };
+  }
+
+  // สร้างรายการลงทะเบียน
   const [enrollment] = await db
     .insert(schema.enrollments)
     .values({
@@ -54,6 +80,7 @@ export async function createEnrollmentAction(
     })
     .returning();
 
+  // สร้างรายการชำระเงิน
   await db.insert(schema.payments).values({
     userId: session.userId,
     enrollmentId: enrollment.id,
@@ -66,6 +93,7 @@ export async function createEnrollmentAction(
   revalidatePath("/dashboard/bookings");
   revalidatePath("/dashboard/payments");
   revalidatePath("/admin/bookings");
+
   redirect("/dashboard/bookings?booked=1");
 }
 
@@ -76,7 +104,10 @@ export async function cancelEnrollmentAction(formData: FormData) {
   const enrollment = await db.query.enrollments.findFirst({
     where: eq(schema.enrollments.id, id),
   });
-  if (!enrollment || enrollment.userId !== session.userId) return;
+
+  if (!enrollment || enrollment.userId !== session.userId) {
+    return;
+  }
 
   await db
     .update(schema.enrollments)
@@ -87,13 +118,22 @@ export async function cancelEnrollmentAction(formData: FormData) {
   revalidatePath("/admin/bookings");
 }
 
-const statusSchema = z.enum(["pending", "confirmed", "cancelled", "completed"]);
+const statusSchema = z.enum([
+  "pending",
+  "confirmed",
+  "cancelled",
+  "completed",
+]);
 
 export async function updateEnrollmentStatusAction(formData: FormData) {
   await requireAdmin();
+
   const id = Number(formData.get("id"));
   const parsed = statusSchema.safeParse(formData.get("status"));
-  if (!parsed.success) return;
+
+  if (!parsed.success) {
+    return;
+  }
 
   await db
     .update(schema.enrollments)
