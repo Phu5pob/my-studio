@@ -61,3 +61,7 @@ npm run db:seed
 npm run dev
 # http://localhost:3000
 ```
+
+## Development Environment
+
+This branch is used for testing My Studio features before production deployment.
